@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  checkoutViewViewController.h
 //  MYSHOP
 //
 //  Created by Moshood Adeaga on 01/05/2018.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface checkoutViewViewController : UIViewController
 
 @end
-
