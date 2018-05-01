@@ -9,29 +9,49 @@
 #import "checkoutViewViewController.h"
 
 @interface checkoutViewViewController ()
-
+@property (strong, nonatomic) NSDictionary *checkOutDict;
 @end
 
 @implementation checkoutViewViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.checkOutDict = [[NSDictionary alloc]init];
+    self.checkOutDict = @{ @"APPLE" : @"0.60", @"ORANGE" : @"0.25"};
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)checkOutButton:(id)sender {
+    NSString *itemList = self.itemTextfield.text;
+    itemList = [itemList uppercaseString];
+    itemList = [itemList stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSArray *listItems = [itemList componentsSeparatedByString:@","];
+    listItems = [listItems sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    CGFloat totalCost = 0;
+    CGFloat price = 0.0 ;
+    int occurrencesApple = 0, occurrencesOrange = 0;
+    for (int i = 0; i < listItems.count; i++){
+        NSString *priceKey = [NSString stringWithString:[listItems objectAtIndex:i]];
+        if ([priceKey isEqualToString:@"APPLE"]){
+            price = 0.60;
+            occurrencesApple++;
+        }
+        if ([priceKey isEqualToString:@"ORANGE"]){
+            price = 0.25;
+            occurrencesOrange++;
+        }
+        price = ceil(price * 1000.0)/1000.0;
+        totalCost += price;
+        
+        if(occurrencesApple % 2 == 0 && occurrencesApple != 0 && [priceKey isEqualToString:@"APPLE"]){
+            totalCost -= 0.60;
+        }
+        if(occurrencesOrange % 3 == 0 && occurrencesOrange != 0 && [priceKey isEqualToString:@"ORANGE"]){
+            totalCost -= 0.25;
+        }
+        
+    }
+    NSString *costString = [@(totalCost) stringValue];
+    self.priceLabel.text =costString;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

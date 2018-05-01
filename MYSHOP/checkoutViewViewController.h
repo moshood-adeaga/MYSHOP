@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface checkoutViewViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITextField *itemTextfield;
+- (IBAction)checkOutButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
 @end

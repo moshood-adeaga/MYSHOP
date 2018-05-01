@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "checkoutViewViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    checkoutViewViewController *checkOut = [[checkoutViewViewController new]initWithNibName:@"checkoutViewViewController" bundle:nil];
+    
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:checkOut];
+
+    self.window =[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
+    [self.window setRootViewController:nav];
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
